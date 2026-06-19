@@ -5,6 +5,12 @@ import {
 } from "react-icons/fa";
 
 import { MdEmail } from "react-icons/md";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
+
+
+
+
 
 const contacts = [
   {
@@ -34,6 +40,57 @@ const contacts = [
 ];
 
 const Contact = () => {
+const [formData, setFormData] = useState({
+  from_name: "",
+  from_email: "",
+  subject: "",
+  message: "",
+});
+
+const [loading, setLoading] = useState(false);
+const [success, setSuccess] = useState("");
+
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleSubmit = async (
+  e: React.FormEvent
+) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+
+    await emailjs.send(
+      "gmail_service",
+      "template_q00k4n7",
+      formData,
+      "IwEP0YD5evf7HZrQk"
+    );
+
+    setSuccess("Message sent successfully!");
+
+    setFormData({
+      from_name: "",
+      from_email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    setSuccess(
+      "Something went wrong. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <section
       id="contact"
@@ -157,6 +214,124 @@ const Contact = () => {
           })}
 
         </div>
+
+        <div
+  className="
+  mt-16
+  max-w-3xl
+  mx-auto
+  border
+  border-white/10
+  bg-white/[0.02]
+  backdrop-blur-xl
+  rounded-3xl
+  p-8
+  "
+>
+  <form
+    onSubmit={handleSubmit}
+    className="space-y-6"
+  >
+    <input
+      type="text"
+      name="from_name"
+      placeholder="Your Name"
+      value={formData.from_name}
+      onChange={handleChange}
+      required
+      className="
+      w-full
+      bg-transparent
+      border
+      border-white/10
+      rounded-xl
+      px-5
+      py-4
+      outline-none
+      "
+    />
+
+    <input
+      type="email"
+      name="from_email"
+      placeholder="Your Email"
+      value={formData.from_email}
+      onChange={handleChange}
+      required
+      className="
+      w-full
+      bg-transparent
+      border
+      border-white/10
+      rounded-xl
+      px-5
+      py-4
+      outline-none
+      "
+    />
+
+    <input
+      type="text"
+      name="subject"
+      placeholder="Subject"
+      value={formData.subject}
+      onChange={handleChange}
+      required
+      className="
+      w-full
+      bg-transparent
+      border
+      border-white/10
+      rounded-xl
+      px-5
+      py-4
+      outline-none
+      "
+    />
+
+    <textarea
+      rows={6}
+      name="message"
+      placeholder="Your Message"
+      value={formData.message}
+      onChange={handleChange}
+      required
+      className="
+      w-full
+      bg-transparent
+      border
+      border-white/10
+      rounded-xl
+      px-5
+      py-4
+      resize-none
+      outline-none
+      "
+    />
+
+    <button
+      type="submit"
+      disabled={loading}
+      className="
+      w-full
+      py-4
+      rounded-xl
+      bg-white
+      text-black
+      font-semibold
+      cursor-pointer
+      "
+    >
+      {loading ? "Sending..." : "Send Message"}
+    </button>
+
+    {success && (
+      <p className="text-center text-zinc-400">
+        {success}
+      </p>
+    )}
+  </form>
+</div>
 
         {/* CTA */}
 
