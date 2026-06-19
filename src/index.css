@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "@fontsource/space-grotesk";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+}
+
+body {
+  background: #050505;
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+::selection {
+  background: white;
+  color: black;
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.04em;
+}
+
+body {
+  line-height: 1.4;
+}
