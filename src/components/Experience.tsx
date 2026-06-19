@@ -65,7 +65,7 @@ const Experience = () => {
                 font-semibold
                 "
               >
-                Full Stack Developer Intern
+                Full Stack Developer 
               </h3>
 
               <p
